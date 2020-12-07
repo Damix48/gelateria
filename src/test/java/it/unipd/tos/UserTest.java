@@ -105,4 +105,9 @@ public class UserTest {
     assertFalse(user.equals(null));
   }
 
+  @Test
+  public void testDifferentClass() {
+    assertFalse(user.equals(new Object()));
+  }
+
 }
