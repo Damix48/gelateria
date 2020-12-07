@@ -44,16 +44,6 @@ public class UserTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testAgeNull() {
-    new User(name, null);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testNameAgeNull() {
-    new User(null, null);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
   public void testAgeNegative() {
     new User(name, -1);
   }
