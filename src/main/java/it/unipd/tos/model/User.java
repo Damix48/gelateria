@@ -4,6 +4,8 @@
 
 package it.unipd.tos.model;
 
+import java.util.Objects;
+
 public class User {
   private final String name;
   private final int age;
@@ -33,5 +35,28 @@ public class User {
 
   public boolean isUnder18() {
     return age < 18;
+  }
+
+  @Override
+  public boolean equals(Object _object) {
+    if (this == _object) {
+      return true;
+    }
+
+    if (_object == null) {
+      return false;
+    }
+
+    if (getClass() != _object.getClass()) {
+      return false;
+    }
+
+    User _user = (User) _object;
+
+    if (!Objects.equals(getName(), _user.getName())) {
+      return false;
+    }
+
+    return getAge() == _user.getAge();
   }
 }
