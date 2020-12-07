@@ -48,7 +48,7 @@ public class UserTest {
     new User(name, -1);
   }
 
-  @Test(expected = IllegalAccessException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testNameEmpty() {
     new User("", age);
   }
