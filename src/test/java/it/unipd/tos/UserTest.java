@@ -34,7 +34,7 @@ public class UserTest {
   }
 
   @Test
-  public void testkGetAge() {
+  public void testGetAge() {
     assertEquals(age, user.getAge());
   }
 
