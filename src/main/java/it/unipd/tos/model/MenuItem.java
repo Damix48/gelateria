@@ -4,8 +4,6 @@
 
 package it.unipd.tos.model;
 
-import java.time.LocalTime;
-
 public class MenuItem {
   public enum ItemType {
     GELATO, BUDINO, BEVANDA;
