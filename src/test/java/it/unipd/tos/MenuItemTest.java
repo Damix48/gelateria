@@ -39,11 +39,10 @@ public class MenuItemTest {
     assertEquals(name, item.getName());
   }
 
-  // Deprecata per problemi di precisione
-  // @Test
-  // public void testGetPrice() {
-  // assertEquals(price, item.getPrice());
-  // }
+  @Test
+  public void testGetPrice() {
+    assertEquals(price, item.getPrice(), 0.001);
+  }
 
   @Test(expected = IllegalArgumentException.class)
   public void testTypeNull() {
