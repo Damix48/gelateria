@@ -7,8 +7,10 @@ package it.unipd.tos.business;
 import java.util.List;
 
 import it.unipd.tos.business.exception.TakeAwayBillException;
+import it.unipd.tos.model.Discount5Gelati;
 import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
+import it.unipd.tos.model.exception.DiscountException;
 
 public class BillCalculator implements TakeAwayBill {
   private double total;
@@ -28,6 +30,13 @@ public class BillCalculator implements TakeAwayBill {
 
     for (MenuItem item : itemsOrdered) {
       total += item.getPrice();
+    }
+
+    try {
+      Discount5Gelati discount5Gelati = new Discount5Gelati();
+      total -= discount5Gelati.getDiscount(itemsOrdered);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
 
     return total;

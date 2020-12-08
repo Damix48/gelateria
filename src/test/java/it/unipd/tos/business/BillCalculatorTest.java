@@ -19,7 +19,7 @@ import it.unipd.tos.model.MenuItem.ItemType;
 
 public class BillCalculatorTest {
 
-  List<MenuItem> listItem;
+  List<MenuItem> listItems;
   User user;
   BillCalculator bill;
 
@@ -27,17 +27,17 @@ public class BillCalculatorTest {
   public void setup() {
     user = new User("_name", 21);
 
-    listItem = new ArrayList<MenuItem>();
-    listItem.add(new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 12.99));
-    listItem.add(new MenuItem(ItemType.BUDINO, "Budino al pistacchio", 14.99));
-    listItem.add(new MenuItem(ItemType.BEVANDA, "Bevanda al pistacchio", 16.99));
+    listItems = new ArrayList<MenuItem>();
+    listItems.add(new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 12.99));
+    listItems.add(new MenuItem(ItemType.BUDINO, "Budino al pistacchio", 14.99));
+    listItems.add(new MenuItem(ItemType.BEVANDA, "Bevanda al pistacchio", 16.99));
 
     bill = new BillCalculator();
   }
 
   @Test
   public void testGetOrderPrice() throws TakeAwayBillException {
-    assertEquals(44.97, bill.getOrderPrice(listItem, user), 0.001);
+    assertEquals(44.97, bill.getOrderPrice(listItems, user), 0.001);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -52,6 +52,17 @@ public class BillCalculatorTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testUserNull() throws TakeAwayBillException {
-    assertEquals(44.97, bill.getOrderPrice(listItem, null), 0.001);
+    assertEquals(44.97, bill.getOrderPrice(listItems, null), 0.001);
+  }
+
+  @Test
+  public void testDiscount5Gelati() throws TakeAwayBillException {
+    listItems.add(new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 12.99));
+    listItems.add(new MenuItem(ItemType.GELATO, "Gelato al cioccolato", 5.99));
+    listItems.add(new MenuItem(ItemType.GELATO, "Gelato alla fragola", 2.99));
+    listItems.add(new MenuItem(ItemType.GELATO, "Gelato al limone", 7.99));
+    listItems.add(new MenuItem(ItemType.GELATO, "Gelato al cocco", 3.99));
+
+    assertEquals(77.42, bill.getOrderPrice(listItems, user), 0.01);
   }
 }
