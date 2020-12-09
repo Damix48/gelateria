@@ -17,7 +17,7 @@ import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.MenuItem.ItemType;
 import it.unipd.tos.model.exception.DiscountException;
 
-public class DiscountTest {
+public class Discount5GelatiTest {
 
   Discount5Gelati discount;
 
