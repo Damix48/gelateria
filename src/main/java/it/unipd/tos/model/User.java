@@ -59,4 +59,9 @@ public class User {
 
     return getAge() == _user.getAge();
   }
+
+  @Override
+  public int hashCode() {
+    return name.hashCode() * 29 + age * 37;
+  }
 }
