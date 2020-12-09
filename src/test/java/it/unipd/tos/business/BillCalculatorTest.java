@@ -50,6 +50,14 @@ public class BillCalculatorTest {
     assertEquals(44.97, bill.getOrderPrice(new ArrayList<MenuItem>(), user), 0.001);
   }
 
+  @Test(expected = TakeAwayBillException.class)
+  public void testMax30Item() throws TakeAwayBillException {
+    for (int i = 0; i < 30; i++) {
+      listItems.add(new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 12.99));
+    }
+    assertEquals(434.67, bill.getOrderPrice(listItems, user), 0.001);
+  }
+
   @Test(expected = IllegalArgumentException.class)
   public void testUserNull() throws TakeAwayBillException {
     assertEquals(44.97, bill.getOrderPrice(listItems, null), 0.001);
@@ -63,8 +71,9 @@ public class BillCalculatorTest {
     listItems.add(new MenuItem(ItemType.GELATO, "Gelato al limone", 7.99));
     listItems.add(new MenuItem(ItemType.GELATO, "Gelato al cocco", 3.99));
 
-    // assertEquals(77.42, bill.getOrderPrice(listItems, user), 0.01); // SOLO
-    // SCONTO 5 GELATI
+    // SOLO SCONTO 5 GELATI
+    // assertEquals(77.42, bill.getOrderPrice(listItems, user), 0.01);
+
     assertEquals(69.53, bill.getOrderPrice(listItems, user), 0.01);
   }
 }

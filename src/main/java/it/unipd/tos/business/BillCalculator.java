@@ -25,6 +25,9 @@ public class BillCalculator implements TakeAwayBill {
     if (itemsOrdered.isEmpty()) {
       throw new IllegalArgumentException("La lista non può essere vuota");
     }
+    if (itemsOrdered.size() > 30) {
+      throw new TakeAwayBillException("Non si possono ordinare più di 30 item");
+    }
     if (user == null) {
       throw new IllegalArgumentException("L'utente non può essere nullo");
     }
