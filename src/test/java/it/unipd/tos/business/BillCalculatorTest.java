@@ -76,4 +76,14 @@ public class BillCalculatorTest {
 
     assertEquals(69.53, bill.getOrderPrice(listItems, user), 0.01);
   }
+
+  @Test
+  public void testCommssion50Cent() throws TakeAwayBillException {
+    listItems = new ArrayList<MenuItem>();
+    listItems.add(new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 1.99));
+    listItems.add(new MenuItem(ItemType.BUDINO, "Budino al pistacchio", 1.99));
+    listItems.add(new MenuItem(ItemType.BEVANDA, "Bevanda al pistacchio", 1.99));
+
+    assertEquals(6.47, bill.getOrderPrice(listItems, user), 0.01);
+  }
 }

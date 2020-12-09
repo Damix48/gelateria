@@ -48,6 +48,11 @@ public class BillCalculator implements TakeAwayBill {
       System.out.println(e.getMessage());
     }
 
+    // LA COMMISSIONE VIENE AGGIUNTA DOPO IL CALOLO DEGLI SCONTI
+    if (total < 10) {
+      total += 0.5;
+    }
+
     return total;
   }
 
