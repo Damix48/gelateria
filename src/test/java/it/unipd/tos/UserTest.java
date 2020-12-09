@@ -115,4 +115,10 @@ public class UserTest {
     user = new User("_name1", 17);
     assertEquals(301897024, user.hashCode());
   }
+
+  @Test
+  public void testIsWinner() {
+    user = new User("_name1", 17);
+    assertTrue(user.isWinner());
+  }
 }

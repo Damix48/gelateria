@@ -64,4 +64,8 @@ public class User {
   public int hashCode() {
     return name.hashCode() * 29 + age * 37;
   }
+
+  public boolean isWinner() {
+    return this.isUnder18() && this.hashCode() % 4 == 0;
+  }
 }
