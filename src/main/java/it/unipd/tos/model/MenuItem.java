@@ -57,11 +57,11 @@ public class MenuItem {
     if (_time == null) {
       throw new IllegalArgumentException("L'orario non può essere nullo");
     }
+
     if (_time.isAfter(LocalTime.now())) {
       throw new IllegalArgumentException("L'orario non può essere futuro");
     }
 
     time = _time;
   }
-
 }

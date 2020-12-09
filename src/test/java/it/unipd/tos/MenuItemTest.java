@@ -6,6 +6,8 @@ package it.unipd.tos;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalTime;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -63,4 +65,23 @@ public class MenuItemTest {
   public void testNameEmpty() {
     new MenuItem(type, "", price);
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetTimeNull() {
+    item.setTime(null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetTimeFuture() {
+    item.setTime(LocalTime.now().plusHours(1));
+  }
+
+  @Test
+  public void testGetTime() {
+    LocalTime time = LocalTime.now().minusHours(1);
+    item.setTime(time);
+
+    assertEquals(time, item.getTime());
+  }
+
 }
