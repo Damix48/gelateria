@@ -5,6 +5,7 @@
 package it.unipd.tos;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalTime;
@@ -81,10 +82,18 @@ public class MenuItemTest {
   }
 
   @Test
-  public void testisDuringWinningTime() {
+  public void testIsDuringWinningTime() {
     LocalTime time = LocalTime.of(18, 45, 0);
     item.setTime(time);
 
     assertTrue(item.isDuringWinningTime());
+  }
+
+  @Test
+  public void testIsNotDuringWinningTime() {
+    LocalTime time = LocalTime.of(17, 45, 0);
+    item.setTime(time);
+
+    assertFalse(item.isDuringWinningTime());
   }
 }

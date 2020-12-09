@@ -121,4 +121,10 @@ public class UserTest {
     user = new User("_name1", 17);
     assertTrue(user.isWinner());
   }
+
+  @Test
+  public void testIsNotWinner() {
+    user = new User("_name2", 17);
+    assertFalse(user.isWinner());
+  }
 }
