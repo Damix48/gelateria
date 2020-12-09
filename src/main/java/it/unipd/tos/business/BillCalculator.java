@@ -4,17 +4,19 @@
 
 package it.unipd.tos.business;
 
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Random;
 
 import it.unipd.tos.business.exception.TakeAwayBillException;
 import it.unipd.tos.model.Discount50Euro;
 import it.unipd.tos.model.Discount5Gelati;
 import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
-import it.unipd.tos.model.exception.DiscountException;
 
 public class BillCalculator implements TakeAwayBill {
   private double total;
+  private int regali = 10;
 
   public double getOrderPrice(List<MenuItem> itemsOrdered, User user)
       throws TakeAwayBillException, IllegalArgumentException {
@@ -53,7 +55,17 @@ public class BillCalculator implements TakeAwayBill {
       total += 0.5;
     }
 
+    MenuItem last = itemsOrdered.get(itemsOrdered.size() - 1);
+
+    if (isFree(last, user)) {
+      total = 0;
+      regali--;
+    }
+
     return total;
   }
 
+  public boolean isFree(MenuItem item, User user) {
+    return item.isDuringWinningTime() && user.isWinner() && regali > 0;
+  }
 }

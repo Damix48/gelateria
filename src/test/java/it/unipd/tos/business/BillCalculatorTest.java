@@ -5,7 +5,10 @@
 package it.unipd.tos.business;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,5 +88,85 @@ public class BillCalculatorTest {
     listItems.add(new MenuItem(ItemType.BEVANDA, "Bevanda al pistacchio", 1.99));
 
     assertEquals(6.47, bill.getOrderPrice(listItems, user), 0.01);
+  }
+
+  @Test
+  public void testIsFree() {
+    MenuItem item = new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 1.99);
+    item.setTime(LocalTime.of(18, 45, 0));
+
+    user = new User("_name1", 17);
+
+    assertTrue(bill.isFree(item, user));
+  }
+
+  @Test
+  public void testIsNotFreeBecauseTime() {
+    MenuItem item = new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 1.99);
+    item.setTime(LocalTime.of(19, 45, 0));
+
+    user = new User("_name1", 17);
+
+    assertFalse(bill.isFree(item, user));
+  }
+
+  @Test
+  public void testIsNotFreeBecauseSfiga() {
+    MenuItem item = new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 1.99);
+    item.setTime(LocalTime.of(18, 45, 0));
+
+    user = new User("_name", 17);
+
+    assertFalse(bill.isFree(item, user));
+  }
+
+  @Test
+  public void testIsNotFreeBecauseTooOld() {
+    MenuItem item = new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 1.99);
+    item.setTime(LocalTime.of(18, 45, 0));
+
+    user = new User("_name1", 21);
+
+    assertFalse(bill.isFree(item, user));
+  }
+
+  @Test
+  public void testIsNotFreeBecauseTooOldAndSfiga() {
+    MenuItem item = new MenuItem(ItemType.GELATO, "Gelato al pistacchio", 1.99);
+    item.setTime(LocalTime.of(18, 45, 0));
+
+    user = new User("_name1", 18);
+
+    assertFalse(bill.isFree(item, user));
+  }
+
+  @Test
+  public void test1Winner() throws TakeAwayBillException {
+    listItems.get(listItems.size() - 1).setTime(LocalTime.of(18, 45, 0));
+    user = new User("_name1", 17);
+    assertEquals(0, bill.getOrderPrice(listItems, user), 0.01);
+  }
+
+  @Test
+  public void test10Winner() throws TakeAwayBillException {
+    listItems.get(listItems.size() - 1).setTime(LocalTime.of(18, 45, 0));
+
+    for (int i = 0; i < 10; i++) {
+      user = new User("_name1", 17);
+      assertEquals(0, bill.getOrderPrice(listItems, user), 0.01);
+    }
+  }
+
+  @Test
+  public void test10WinnerAnd11thNotWinner() throws TakeAwayBillException {
+    listItems.get(listItems.size() - 1).setTime(LocalTime.of(18, 45, 0));
+
+    for (int i = 0; i < 10; i++) {
+      user = new User("_name1", 17);
+      assertEquals(0, bill.getOrderPrice(listItems, user), 0.01);
+    }
+
+    user = new User("_name1", 17);
+    assertEquals(44.97, bill.getOrderPrice(listItems, user), 0.01);
   }
 }
