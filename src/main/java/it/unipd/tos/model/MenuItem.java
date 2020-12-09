@@ -58,10 +58,10 @@ public class MenuItem {
       throw new IllegalArgumentException("L'orario non può essere nullo");
     }
 
-    if (_time.isAfter(LocalTime.now())) {
-      throw new IllegalArgumentException("L'orario non può essere futuro");
-    }
-
     time = _time;
+  }
+
+  public boolean isDuringWinningTime() {
+    return this.getTime().isBefore(LocalTime.of(19, 0, 0)) && this.getTime().isAfter(LocalTime.of(18, 0, 0));
   }
 }
