@@ -63,6 +63,8 @@ public class BillCalculatorTest {
     listItems.add(new MenuItem(ItemType.GELATO, "Gelato al limone", 7.99));
     listItems.add(new MenuItem(ItemType.GELATO, "Gelato al cocco", 3.99));
 
-    assertEquals(77.42, bill.getOrderPrice(listItems, user), 0.01);
+    // assertEquals(77.42, bill.getOrderPrice(listItems, user), 0.01); // SOLO
+    // SCONTO 5 GELATI
+    assertEquals(69.53, bill.getOrderPrice(listItems, user), 0.01);
   }
 }
